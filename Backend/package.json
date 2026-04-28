@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@supabase/supabase-js": "^2.104.0",
+    "twilio": "^6.0.0",
+    "zod": "^4.3.6"
+  }
+}

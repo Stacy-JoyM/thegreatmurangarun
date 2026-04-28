@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  --green:        #043C1F;
+  --green-dark:   #022b15;
+  --green-mid:    #075c30;
+  --green-soft:   #e4ede8;
+  --red:          #a62035;
+  --yellow:       #FFC300;
+  --cream:        #f7f5ef;
+  --ink:          #111111;
+  --ink-soft:     #444444;
+  --ink-muted:    #888888;
+  --hairline:     #e2e2e2;
+  --white:        #ffffff;
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+}
+
+html, body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-weight: 500;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), Arial, Helvetica, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+button, input, select, textarea, .eyebrow, .race-day-pill {
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+}
+
+/* Eyebrow label */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink-muted);
+}
+
+/* Green ribbon/pill */
+.race-day-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: var(--white);
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+/* Green top-border card */
+.signup-card {
+  background: var(--white);
+  border-top: 4px solid var(--green);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px -8px rgba(0,0,0,0.14);
+}
+
+/* Diagonal stripe overlay (hero decoration) */
+.hero-stripes {
+  background-image: repeating-linear-gradient(
+    112deg,
+    transparent 0,
+    transparent 160px,
+    rgba(255,255,255,0.18) 160px,
+    rgba(255,255,255,0.18) 163px
+  );
+}
+
+::selection {
+  background: var(--green);
+  color: #fff;
+}
