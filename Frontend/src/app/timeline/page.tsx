@@ -17,13 +17,13 @@ const schedule = [
   {
     time: "07:00",
     title: "Flag Off",
-    text: "Staggered starts: 10km Open → 8km Men Under 20 Years → 2km Youth → 1km Masters → 500m Seniors.",
+    text: "Staggered starts: 10km Elite Athletes, All → 8km Men Under 20 Years → 6km Women Under 20 Years → 2km Youth → 1km Masters → 500m Seniors.",
     highlight: true,
   },
   {
     time: "08:00",
-    title: "10km & 8km Finishers",
-    text: "The fastest Open and Men Under 20 Years runners begin crossing the finish line. Cheer them on!",
+    title: "10km, 8km & 6km Finishers",
+    text: "The fastest Open, Men Under 20 Years, and Women Under 20 Years runners begin crossing the finish line. Cheer them on!",
     highlight: false,
   },
   {
@@ -60,13 +60,13 @@ export default function TimelinePage() {
       <section className="relative">
         <div
           className="relative w-full overflow-hidden"
-          style={{ height: "clamp(280px, 78vw, 400px)" }}
+          style={{ height: "clamp(190px, 44vw, 260px)" }}
         >
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?auto=format&fit=crop&w=2400&q=80')",
+                "url('https://ik.imagekit.io/eizd2ue5a/Nairobi-City-Marathon.jpg?updatedAt=1777467867854')",
             }}
           />
           <div
@@ -79,7 +79,7 @@ export default function TimelinePage() {
           <div className="hero-stripes absolute inset-0 pointer-events-none" />
 
           <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-center px-5 sm:px-8">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.22em] text-white/60">
+            <p className="mb-4 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white">
               Race day · 2026
             </p>
             <h1
@@ -88,9 +88,9 @@ export default function TimelinePage() {
             >
               Day
               <br />
-              <span className="text-[color:var(--yellow)]">Schedule.</span>
+              <span className="text-white">Schedule.</span>
             </h1>
-            <div className="race-day-pill mt-6 w-fit">
+            <div className="race-day-pill race-day-pill-white-border mt-6 w-fit">
               <span className="text-white/70">Start Time:</span>
               <span>07:00 EAT</span>
             </div>
@@ -130,7 +130,7 @@ export default function TimelinePage() {
                   <span
                     className={`relative z-10 mb-1 text-[12px] font-extrabold tabular-nums tracking-tight sm:text-base ${
                       item.highlight
-                        ? "text-[color:var(--green)]"
+                        ? "text-[color:var(--ink)]"
                         : "text-[color:var(--ink)]"
                     }`}
                   >
@@ -182,15 +182,24 @@ export default function TimelinePage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────── */}
-      <section className="bg-[color:var(--yellow)]">
+      <section className="relative overflow-hidden bg-[color:var(--green)]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-80"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(166,32,53,0.98) 1.8px, transparent 1.8px)",
+            backgroundSize: "16px 16px",
+          }}
+        />
         <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-8 sm:py-14">
-          <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="relative z-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[color:var(--green)]">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
                 Ready to join?
               </p>
               <h2
-                className="mt-3 font-extrabold uppercase leading-none tracking-tight text-[color:var(--green)]"
+                className="mt-3 font-extrabold uppercase leading-none tracking-tight text-white"
                 style={{ fontSize: "clamp(24px, 4vw, 40px)" }}
               >
                 See you at 07:00.
@@ -198,7 +207,7 @@ export default function TimelinePage() {
             </div>
             <Link
               href="/registration"
-              className="inline-flex min-h-12 w-full items-center justify-center text-center sm:w-auto shrink-0 rounded-sm bg-[color:var(--green)] px-8 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[color:var(--green-dark)]"
+              className="inline-flex min-h-12 w-full items-center justify-center text-center sm:w-auto shrink-0 rounded-sm bg-[color:var(--green-dark)] px-8 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[color:var(--green-dark)]"
             >
               Register Now →
             </Link>

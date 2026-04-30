@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Manrope, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import HomeCountdown from "@/components/home-countdown";
+
+const brandIconUrl = "https://ik.imagekit.io/eizd2ue5a/icon_image.JPG";
 
 const manrope = Manrope({
   variable: "--font-body",
@@ -21,9 +24,9 @@ export const metadata: Metadata = {
   description:
     "A community-first running event in Muranga, Kenya. Register online — free and open to all.",
   icons: {
-    icon: "/muranga_icon.png",
-    shortcut: "/muranga_icon.png",
-    apple: "/muranga_icon.png",
+    icon: brandIconUrl,
+    shortcut: brandIconUrl,
+    apple: brandIconUrl,
   },
 };
 
@@ -39,6 +42,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex flex-col bg-white antialiased">
         <Navbar />
+        <HomeCountdown />
         <main className="flex-1">{children}</main>
       </body>
     </html>

@@ -5,11 +5,12 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+const brandIconUrl = "https://ik.imagekit.io/eizd2ue5a/icon_image.JPG";
+
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/timeline", label: "Timeline" },
-  { href: "/registration", label: "Registration" },
 ];
 
 export default function Navbar() {
@@ -22,24 +23,30 @@ export default function Navbar() {
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-3.5 py-3.5 sm:px-8">
 
         {/* Logo */}
-        <Link href="/" className="flex min-w-0 items-center gap-2" onClick={() => setOpen(false)}>
-          <Image
-            src="/muranga_icon.png"
-            alt="The Great Muranga Community Run logo"
-            width={56}
-            height={56}
-            className="h-10 w-10 shrink-0 rounded-full object-contain sm:h-13 sm:w-13"
-            priority
-          />
+        <Link
+          href="/"
+          className="flex min-w-0 items-center gap-2 no-underline outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--green)] focus-visible:ring-offset-2"
+          onClick={() => setOpen(false)}
+        >
+          <span className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-full sm:h-20 sm:w-20">
+            <Image
+              src={brandIconUrl}
+              alt="The Great Muranga Community Run logo"
+              width={92}
+              height={92}
+              className="block h-full w-full object-contain"
+              priority
+            />
+          </span>
           {/* Short version on small screens, full title on laptop+ */}
           <div className="hidden min-[400px]:block min-w-0 leading-tight">
-            <p className="truncate text-[12px] font-bold uppercase tracking-[0.1em] text-[color:var(--green)] md:hidden">
+            <p className="truncate text-[12px] font-bold uppercase tracking-[0.1em] text-[color:var(--ink)] md:hidden">
               The Great Muranga
             </p>
-            <p className="truncate text-[11px] font-bold uppercase tracking-[0.08em] text-[color:var(--green)]/70 md:hidden">
+            <p className="truncate text-[11px] font-bold uppercase tracking-[0.08em] text-[color:var(--ink)]/70 md:hidden">
               Community Run · 2026
             </p>
-            <p className="hidden md:block text-[15px] font-extrabold uppercase tracking-[0.1em] text-[color:var(--green)]">
+            <p className="hidden md:block text-[15px] font-extrabold uppercase tracking-[0.1em] text-[color:var(--ink)]">
               The Great Muranga Community Run
             </p>
           </div>
@@ -51,9 +58,9 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`text-[13px] font-bold uppercase tracking-[0.16em] transition hover:text-[color:var(--green)] ${
+              className={`rounded-sm px-2.5 py-1.5 text-[13px] font-bold uppercase tracking-[0.16em] transition hover:text-[color:var(--ink)] ${
                 pathname === link.href
-                  ? "text-[color:var(--green)]"
+                  ? "bg-[color:var(--hairline)] text-[color:var(--ink)]"
                   : "text-[color:var(--ink-soft)]"
               }`}
             >
@@ -62,9 +69,11 @@ export default function Navbar() {
           ))}
           <Link
             href="/registration"
-            className="rounded-sm bg-[color:var(--green)] px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition hover:bg-[color:var(--green-dark)]"
+            className="moving-glow-border rounded-md bg-[linear-gradient(90deg,#ffffff,var(--red),#ffffff,var(--red),#ffffff)] p-[2px] shadow-[0_0_0_1px_rgba(255,255,255,0.08)] transition hover:-translate-y-0.5 hover:brightness-110"
           >
-            Sign Up
+            <span className="inline-flex min-h-12 items-center rounded-[calc(0.375rem-2px)] bg-[color:var(--green)] px-7 py-3 text-[16px] font-bold uppercase tracking-[0.08em] text-white">
+              Registration
+            </span>
           </Link>
         </nav>
 
@@ -73,9 +82,11 @@ export default function Navbar() {
           <Link
             href="/registration"
             onClick={() => setOpen(false)}
-            className="inline-flex min-h-11 items-center rounded-sm bg-[color:var(--green)] px-3.5 py-2 text-[12px] font-bold uppercase tracking-[0.06em] text-white"
+            className="moving-glow-border inline-flex rounded-md bg-[linear-gradient(90deg,#ffffff,var(--red),#ffffff,var(--red),#ffffff)] p-[2px] transition hover:-translate-y-0.5 hover:brightness-110"
           >
-            Sign Up
+            <span className="inline-flex min-h-12 items-center rounded-[calc(0.375rem-2px)] bg-[color:var(--green)] px-5 py-2.5 text-[14px] font-bold uppercase tracking-[0.08em] text-white">
+              Registration
+            </span>
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -105,9 +116,9 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`flex min-h-[56px] items-center gap-3 border-b border-[color:var(--hairline)] text-[15px] font-bold uppercase tracking-[0.1em] transition ${
+                className={`flex min-h-[56px] items-center gap-3 border-b border-[color:var(--hairline)] px-2 text-[15px] font-bold uppercase tracking-[0.1em] transition ${
                   pathname === link.href
-                    ? "text-[color:var(--green)]"
+                    ? "bg-[color:var(--hairline)] text-[color:var(--ink)]"
                     : "text-[color:var(--ink-soft)]"
                 }`}
               >
@@ -125,9 +136,11 @@ export default function Navbar() {
               <Link
                 href="/registration"
                 onClick={() => setOpen(false)}
-                className="flex min-h-12 w-full items-center justify-center rounded-sm bg-[color:var(--green)] py-4 text-[15px] font-bold uppercase tracking-[0.08em] text-white"
+                className="moving-glow-border block rounded-md bg-[linear-gradient(90deg,#ffffff,var(--red),#ffffff,var(--red),#ffffff)] p-[2px] transition hover:-translate-y-0.5 hover:brightness-110"
               >
-                Register Free →
+                <span className="flex min-h-14 w-full items-center justify-center rounded-[calc(0.375rem-2px)] bg-[color:var(--green)] py-4 text-[16px] font-bold uppercase tracking-[0.08em] text-white">
+                  Registration →
+                </span>
               </Link>
             </div>
           </nav>

@@ -4,8 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+const brandIconUrl = "https://ik.imagekit.io/eizd2ue5a/icon_image.JPG";
+
 /* ── Types ───────────────────────────────────────────────── */
-type Category = "10km" | "8km" | "2km" | "1km" | "500m";
+type Category = "10km" | "8km" | "6km" | "2km" | "1km" | "500m";
 
 type Participant = {
   id: number;
@@ -35,9 +37,10 @@ const SEED: Participant[] = [
 const CATEGORY_COLOR: Record<Category, string> = {
   "10km": "bg-[color:var(--green)] text-white",
   "8km":  "bg-[color:var(--ink)] text-white",
-  "2km":  "bg-[color:var(--green-soft)] text-[color:var(--green)]",
-  "1km":  "bg-[color:var(--green-soft)] text-[color:var(--green)]",
-  "500m": "bg-[color:var(--yellow)] text-[color:var(--green)]",
+  "6km":  "bg-[color:var(--yellow)] text-[color:var(--ink)]",
+  "2km":  "bg-[color:var(--green-soft)] text-[color:var(--ink)]",
+  "1km":  "bg-[color:var(--green-soft)] text-[color:var(--ink)]",
+  "500m": "bg-[color:var(--yellow)] text-[color:var(--ink)]",
 };
 
 /* ── Admin page ──────────────────────────────────────────── */
@@ -95,6 +98,7 @@ export default function AdminPage() {
   const attended = participants.filter((p) => p.attended).length;
   const by10km    = participants.filter((p) => p.category === "10km").length;
   const by8km     = participants.filter((p) => p.category === "8km").length;
+  const by6km     = participants.filter((p) => p.category === "6km").length;
   const by2km     = participants.filter((p) => p.category === "2km").length;
   const by1km     = participants.filter((p) => p.category === "1km").length;
   const by500m   = participants.filter((p) => p.category === "500m").length;
@@ -105,9 +109,9 @@ export default function AdminPage() {
       <div className="min-h-screen bg-[color:var(--cream)] flex items-center justify-center px-4">
         <div className="w-full max-w-sm bg-white rounded-sm shadow-md p-8">
           <div className="flex items-center gap-3 mb-8">
-            <Image src="/muranga_icon.png" alt="Logo" width={40} height={40} className="h-10 w-10 rounded-full object-contain" />
+            <Image src={brandIconUrl} alt="Logo" width={64} height={64} className="h-16 w-16 rounded-full object-contain" />
             <div>
-              <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-[color:var(--green)]">Muranga Run</p>
+              <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-[color:var(--ink)]">Muranga Run</p>
               <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[color:var(--ink-muted)]">Admin Access</p>
             </div>
           </div>
@@ -164,7 +168,7 @@ export default function AdminPage() {
           </button>
 
           <div className="mt-6 border-t border-[color:var(--hairline)] pt-4">
-            <Link href="/" className="text-xs font-semibold text-[color:var(--ink-muted)] hover:text-[color:var(--green)]">
+            <Link href="/" className="text-xs font-semibold text-[color:var(--ink-muted)] hover:text-[color:var(--ink)]">
               ← Back to site
             </Link>
           </div>
@@ -181,7 +185,7 @@ export default function AdminPage() {
       <header className="bg-[color:var(--green)] px-4 py-4 sm:px-8">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
-            <Image src="/muranga_icon.png" alt="Logo" width={36} height={36} className="h-9 w-9 rounded-full object-contain bg-white/10 p-0.5" />
+            <Image src={brandIconUrl} alt="Logo" width={56} height={56} className="h-14 w-14 rounded-full object-contain bg-white/10 p-0.5" />
             <div>
               <p className="text-sm font-extrabold uppercase text-white">Muranga Run — Admin</p>
               <p className="text-[10px] font-bold uppercase tracking-wide text-white/60">Race Day Dashboard</p>
@@ -204,11 +208,12 @@ export default function AdminPage() {
       <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-8">
 
         {/* ── Stats row ── */}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7 mb-8">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8 mb-8">
           <StatCard label="Total" value={total} />
           <StatCard label="Attended" value={attended} accent />
-          <StatCard label="10km Open" value={by10km} />
+          <StatCard label="10km Elite Athletes, All" value={by10km} />
           <StatCard label="8km Men Under 20 Years" value={by8km} />
+          <StatCard label="6km Women Under 20 Years" value={by6km} />
           <StatCard label="2km Youth" value={by2km} />
           <StatCard label="1km Masters" value={by1km} />
           <StatCard label="500m Seniors" value={by500m} />
@@ -220,7 +225,7 @@ export default function AdminPage() {
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[color:var(--ink-muted)]">
               Attendance Progress
             </p>
-            <p className="text-sm font-extrabold text-[color:var(--green)]">
+            <p className="text-sm font-extrabold text-[color:var(--ink)]">
               {attended} / {total}
               <span className="ml-1 font-semibold text-[color:var(--ink-muted)]">
                 ({total > 0 ? Math.round((attended / total) * 100) : 0}%)
@@ -250,8 +255,9 @@ export default function AdminPage() {
             className="rounded-sm border border-[color:var(--hairline)] bg-white px-3 py-2 text-sm text-[color:var(--ink)] outline-none focus:border-[color:var(--green)]"
           >
             <option value="all">All categories</option>
-            <option value="10km">10km Open</option>
+            <option value="10km">10km Elite Athletes, All</option>
             <option value="8km">8km Men Under 20</option>
+            <option value="6km">6km Women Under 20</option>
             <option value="2km">2km Youth (13–15)</option>
             <option value="1km">1km Masters (50–60)</option>
             <option value="500m">500m Seniors (61+)</option>
