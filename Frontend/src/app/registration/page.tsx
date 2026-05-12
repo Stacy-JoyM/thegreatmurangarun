@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import ContactSection from "@/components/contact-section";
 import PartnersSection from "@/components/partners-section";
 import RegistrationIndemnityText from "@/components/registration-indemnity-text";
@@ -177,11 +179,18 @@ export default function RegistrationPage() {
   /** Individual/Corporate hint UI only after submit failed on that field (not inferred from `errors` alone) */
   const [showRegistrationValidation, setShowRegistrationValidation] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  /** Thank-you dialog right after a successful save; dismiss to see the summary card. */
+  const [thanksModalOpen, setThanksModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitNotice, setSubmitNotice] = useState<string | null>(null);
   const formCardRef = useRef<HTMLDivElement>(null);
   const previousStepRef = useRef(currentStep);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const activeCategoryLabel = useMemo(() => getCategoryLabel(form.category), [form.category]);
   const registrationAsLabel = useMemo(() => {
     if (form.registrationAs === "individual") return "Individual";
@@ -305,7 +314,7 @@ export default function RegistrationPage() {
         return;
       }
       try {
-        const smsResponse = await fetch("/api/registration/confirm-sms", {
+        await fetch("/api/registration/confirm-sms", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -314,13 +323,11 @@ export default function RegistrationPage() {
             categoryLabel: getCategoryLabel(row.category),
           }),
         });
-        if (!smsResponse.ok) {
-          setSubmitNotice("Registration saved, but SMS confirmation could not be sent right now.");
-        }
       } catch {
-        setSubmitNotice("Registration saved, but SMS confirmation could not be sent right now.");
+        /* SMS is best-effort; registration is already saved */
       }
       setSubmitted(true);
+      setThanksModalOpen(true);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Could not save registration. Please try again.";
       setSubmitError(message);
@@ -330,6 +337,7 @@ export default function RegistrationPage() {
   };
 
   return (
+    <>
     <div className="overflow-x-hidden bg-white">
       {/* ── REGISTER HERE BANNER ───────────────────────────── */}
       <section className="relative">
@@ -410,25 +418,34 @@ export default function RegistrationPage() {
               className="min-w-0 scroll-mt-28 rounded-2xl border border-[color:var(--hairline)] bg-white p-5 shadow-[0_20px_50px_-34px_rgba(0,0,0,0.38)] outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--green)] focus-visible:ring-offset-2 sm:p-8 md:p-10"
             >
               {submitted ? (
-                <SuccessBlock
-                  categoryLabel={activeCategoryLabel}
-                  registrationAsLabel={registrationAsLabel}
-                  onReset={() => {
-                    setSubmitted(false);
-                    setCurrentStep(1);
-                    setErrors({});
-                    setSubmitFailed(false);
-                    setSubmitError(null);
-                    setSubmitNotice(null);
-                    setShowRegistrationValidation(false);
-                    const nextCategory = getInitialCategory();
-                    setForm({
-                      ...EMPTY_FORM,
-                      category: nextCategory,
-                      registrationAs: getInitialRegistrationAs(nextCategory),
-                    });
-                  }}
-                />
+                thanksModalOpen ? (
+                  <p className="sr-only">
+                    Registration completed. A thank-you dialog is open with your category, SMS details, and a link to
+                    the race day map.
+                  </p>
+                ) : (
+                  <SuccessBlock
+                    categoryLabel={activeCategoryLabel}
+                    registrationAsLabel={registrationAsLabel}
+                    submitNotice={submitNotice}
+                    onReset={() => {
+                      setSubmitted(false);
+                      setThanksModalOpen(false);
+                      setCurrentStep(1);
+                      setErrors({});
+                      setSubmitFailed(false);
+                      setSubmitError(null);
+                      setSubmitNotice(null);
+                      setShowRegistrationValidation(false);
+                      const nextCategory = getInitialCategory();
+                      setForm({
+                        ...EMPTY_FORM,
+                        category: nextCategory,
+                        registrationAs: getInitialRegistrationAs(nextCategory),
+                      });
+                    }}
+                  />
+                )
               ) : (
                 <form onSubmit={(e) => e.preventDefault()} noValidate>
                   <div className="mb-5">
@@ -866,6 +883,35 @@ export default function RegistrationPage() {
       {/* ── CONTACT ───────────────────────────────────────── */}
       <ContactSection />
     </div>
+    {mounted &&
+      submitted &&
+      thanksModalOpen &&
+      createPortal(
+        <RegistrationThanksModal
+          categoryLabel={activeCategoryLabel}
+          registrationAsLabel={registrationAsLabel}
+          submitNotice={submitNotice}
+          onClose={() => setThanksModalOpen(false)}
+          onRegisterAnother={() => {
+            setSubmitted(false);
+            setThanksModalOpen(false);
+            setCurrentStep(1);
+            setErrors({});
+            setSubmitFailed(false);
+            setSubmitError(null);
+            setSubmitNotice(null);
+            setShowRegistrationValidation(false);
+            const nextCategory = getInitialCategory();
+            setForm({
+              ...EMPTY_FORM,
+              category: nextCategory,
+              registrationAs: getInitialRegistrationAs(nextCategory),
+            });
+          }}
+        />,
+        document.body,
+      )}
+    </>
   );
 }
 
@@ -970,13 +1016,139 @@ function SelectField({
   );
 }
 
+function RegistrationThanksModal({
+  categoryLabel,
+  registrationAsLabel,
+  submitNotice,
+  onClose,
+  onRegisterAnother,
+}: {
+  categoryLabel: string;
+  registrationAsLabel: string;
+  submitNotice: string | null;
+  onClose: () => void;
+  onRegisterAnother: () => void;
+}) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/55 p-4 backdrop-blur-[2px]"
+      role="presentation"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="registration-thanks-title"
+        className="relative max-h-[min(90vh,640px)] w-full max-w-lg overflow-y-auto rounded-2xl border border-[color:var(--hairline)] bg-white p-6 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.45)] sm:p-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close thank-you message"
+          className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-lg border border-transparent text-[color:var(--ink-muted)] transition hover:border-[color:var(--hairline)] hover:bg-[color:var(--cream)] hover:text-[color:var(--ink)]"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="h-5 w-5">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[color:var(--green)] text-white">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+            <path d="M5 12l4 4L19 7" />
+          </svg>
+        </div>
+
+        <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.2em] text-[color:var(--ink-muted)]">
+          Registration received
+        </p>
+        <h2
+          id="registration-thanks-title"
+          className="mt-2 text-2xl font-extrabold uppercase leading-snug tracking-tight text-[color:var(--ink)] sm:text-3xl"
+        >
+          Thank you for applying
+        </h2>
+        <p className="mt-4 text-[15px] leading-relaxed text-[color:var(--ink-soft)]">
+          Thank you for applying for{" "}
+          <span className="font-bold text-[color:var(--ink)]">{categoryLabel}</span>
+          {registrationAsLabel !== "Not selected" ? (
+            <>
+              {" "}
+              as <span className="font-bold text-[color:var(--ink)]">{registrationAsLabel}</span>.
+            </>
+          ) : (
+            "."
+          )}
+        </p>
+        <p className="mt-4 text-[15px] leading-relaxed text-[color:var(--ink-soft)]">
+          You will receive a follow-up SMS with next steps soon.
+        </p>
+        {submitNotice ? (
+          <p role="alert" className="mt-3 rounded-lg border border-[color:var(--hairline)] bg-[color:var(--cream)] px-3 py-2 text-[13px] font-semibold text-[color:var(--ink)]">
+            {submitNotice}
+          </p>
+        ) : null}
+
+        <p className="mt-6 text-[14px] font-semibold leading-relaxed text-[color:var(--ink)]">
+          <Link
+            href="/map-route"
+            className="font-extrabold text-[color:var(--green-dark)] underline decoration-2 underline-offset-4 transition hover:text-[color:var(--green)]"
+          >
+            Check out the map for race day here
+          </Link>
+        </p>
+
+        {registrationAsLabel === "Corporate" && (
+          <p className="mt-5 text-[13px] leading-relaxed text-[color:var(--ink-soft)]">
+            Corporates may send their confirmation payment message to{" "}
+            <a
+              href="mailto:info@msa.co.ke"
+              className="font-semibold text-[color:var(--green-dark)] underline-offset-2 hover:underline"
+            >
+              info@msa.co.ke
+            </a>
+            . Paybill 522522. Account number 1300102322.
+          </p>
+        )}
+
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex min-h-12 flex-1 items-center justify-center rounded-lg border border-[color:var(--hairline)] bg-white px-6 py-3 text-sm font-bold uppercase tracking-wide text-[color:var(--ink)] transition hover:border-[color:var(--ink-muted)] sm:min-w-[140px]"
+          >
+            Continue
+          </button>
+          <button
+            type="button"
+            onClick={onRegisterAnother}
+            className="inline-flex min-h-12 flex-1 items-center justify-center rounded-lg bg-[color:var(--green)] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-[0_12px_26px_-16px_rgba(0,102,0,0.85)] transition hover:bg-[color:var(--green-dark)] sm:min-w-[200px]"
+          >
+            Register another runner
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SuccessBlock({
   categoryLabel,
   registrationAsLabel,
+  submitNotice,
   onReset,
 }: {
   categoryLabel: string;
   registrationAsLabel: string;
+  submitNotice: string | null;
   onReset: () => void;
 }) {
   return (
@@ -995,6 +1167,11 @@ function SuccessBlock({
       <p className="mt-4 max-w-md text-[13px] leading-6 text-[color:var(--ink-soft)]">
         An SMS confirmation will follow shortly. Keep an eye out for race-day updates.
       </p>
+      {submitNotice ? (
+        <p role="status" className="mt-3 max-w-md rounded-lg border border-[color:var(--hairline)] bg-[color:var(--cream)] px-3 py-2 text-[13px] font-semibold text-[color:var(--ink)]">
+          {submitNotice}
+        </p>
+      ) : null}
       {registrationAsLabel === "Corporate" && (
         <p className="mt-4 max-w-md text-[13px] leading-6 text-[color:var(--ink-soft)]">
           Corporates may send their confirmation payment message to{" "}
@@ -1012,6 +1189,14 @@ function SuccessBlock({
       </p>
       <p className="mt-2 text-[12px] font-bold uppercase tracking-[0.12em] text-[color:var(--ink)]">
         Registering as: {registrationAsLabel}
+      </p>
+      <p className="mt-5 text-[14px] font-semibold leading-relaxed text-[color:var(--ink)]">
+        <Link
+          href="/map-route"
+          className="font-extrabold text-[color:var(--green-dark)] underline decoration-2 underline-offset-4 transition hover:text-[color:var(--green)]"
+        >
+          Check out the map for race day here
+        </Link>
       </p>
       <button
         type="button"
