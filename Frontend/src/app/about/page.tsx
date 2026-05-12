@@ -1,5 +1,34 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import ContactSection from "@/components/contact-section";
+import PartnersSection from "@/components/partners-section";
+import { SITE_TAGLINE } from "@/lib/site-tagline";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Learn the story behind The Great Muranga Community Run, its community mission, and what runners can expect on race day.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About | The Great Muranga Community Run",
+    description:
+      "Learn the story behind The Great Muranga Community Run, its community mission, and what runners can expect on race day.",
+    url: "/about",
+  },
+  twitter: {
+    title: "About | The Great Muranga Community Run",
+    description:
+      "Learn the story behind The Great Muranga Community Run, its community mission, and what runners can expect on race day.",
+  },
+  keywords: [
+    "Muranga community run",
+    "about Muranga run",
+    "Muranga County running event",
+    SITE_TAGLINE,
+  ],
+};
 
 export default function AboutPage() {
   return (
@@ -15,7 +44,7 @@ export default function AboutPage() {
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage:
-                "url('https://ik.imagekit.io/eizd2ue5a/tawc_elgon.jpg?updatedAt=1774550567079')",
+                "url('https://ik.imagekit.io/eizd2ue5a/runnerbanner.png')",
             }}
           />
           <div
@@ -33,9 +62,11 @@ export default function AboutPage() {
               style={{ fontSize: "clamp(28px, 7vw, 88px)" }}
             >
               <span className="text-white">Muranga&apos;s </span>
-              <span className="text-[color:var(--red)]">Own </span>
               <span className="text-[color:var(--green)]">Community Run</span>
             </h1>
+            <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.22em] text-white/90 sm:text-[12px] sm:tracking-[0.24em]">
+              {SITE_TAGLINE}
+            </p>
           </div>
         </div>
       </section>
@@ -69,7 +100,10 @@ export default function AboutPage() {
               <figure className="space-y-2">
                 <div
                   className="h-56 rounded-xl bg-cover bg-center sm:h-64"
-                  style={{ backgroundImage: "url('https://ik.imagekit.io/eizd2ue5a/Nairobi-City-Marathon.jpg?updatedAt=1777467867854')" }}
+                  style={{
+                    backgroundImage:
+                      "url('https://ik.imagekit.io/eizd2ue5a/PixVerse_Image_Effect_prompt_Create%20an%20image%20o.jpg')",
+                  }}
                 />
                 <figcaption className="text-[11px] font-bold uppercase tracking-[0.14em] text-[color:var(--ink-muted)]">
                   Muranga Town Race Atmosphere
@@ -81,7 +115,10 @@ export default function AboutPage() {
               <figure className="space-y-2 md:order-1">
                 <div
                   className="h-56 rounded-xl bg-cover bg-center sm:h-64"
-                  style={{ backgroundImage: "url('https://ik.imagekit.io/eizd2ue5a/tawc_elgon.jpg?updatedAt=1774550567079')" }}
+                  style={{
+                    backgroundImage:
+                      "url('https://ik.imagekit.io/eizd2ue5a/1899x879_page-0001.jpg')",
+                  }}
                 />
                 <figcaption className="text-[11px] font-bold uppercase tracking-[0.14em] text-[color:var(--ink-muted)]">
                   Muranga Landscape & Scenic Roads
@@ -127,7 +164,7 @@ export default function AboutPage() {
             />
             <Detail
               title="Categories for Everyone"
-              text="Six distances: 10km Elite Athletes, All, 8km Men Under 20, 6km Women Under 20, 2km Youth (13–15), 1km Masters (50–60), and 500m Seniors (61+)."
+              text="Seven distances: 10km Elite Men and Women, 8km Men Under 20, 6km Women Under 20, 5km Corporate Run, 2km (- 13-15 years - Family Run - 50-60 years), 1km Kids (9–12), and 500m Seniors (61+)."
             />
             <Detail
               title="Safety First"
@@ -174,6 +211,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* ── PARTNERS ──────────────────────────────────────── */}
+      <PartnersSection />
 
       {/* ── CONTACT ───────────────────────────────────────── */}
       <ContactSection />

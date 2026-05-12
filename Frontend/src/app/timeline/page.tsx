@@ -1,5 +1,32 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import ContactSection from "@/components/contact-section";
+import PartnersSection from "@/components/partners-section";
+
+export const metadata: Metadata = {
+  title: "Race Day Timeline",
+  description:
+    "View the full race-day schedule for The Great Muranga Community Run, from bib pickup and warm-up to finish and community hour.",
+  alternates: {
+    canonical: "/timeline",
+  },
+  openGraph: {
+    title: "Race Day Timeline | The Great Muranga Community Run",
+    description:
+      "View the full race-day schedule for The Great Muranga Community Run, from bib pickup and warm-up to finish and community hour.",
+    url: "/timeline",
+  },
+  twitter: {
+    title: "Race Day Timeline | The Great Muranga Community Run",
+    description:
+      "View the full race-day schedule for The Great Muranga Community Run, from bib pickup and warm-up to finish and community hour.",
+  },
+  keywords: [
+    "Muranga run timeline",
+    "race day schedule Muranga",
+    "Muranga community run program",
+  ],
+};
 
 const schedule = [
   {
@@ -17,25 +44,25 @@ const schedule = [
   {
     time: "07:00",
     title: "Flag Off",
-    text: "Staggered starts: 10km Elite Athletes, All → 8km Men Under 20 Years → 6km Women Under 20 Years → 2km Youth → 1km Masters → 500m Seniors.",
+    text: "Staggered starts: 10km Elite Men and Women → 8km Men Under 20 Years → 6km Women Under 20 Years → 5km Corporate Run → 2km (- 13-15 years - Family Run - 50-60 years) → 1km Kids → 500m Seniors.",
     highlight: true,
   },
   {
     time: "08:00",
-    title: "10km, 8km & 6km Finishers",
-    text: "The fastest Open, Men Under 20 Years, and Women Under 20 Years runners begin crossing the finish line. Cheer them on!",
+    title: "10km, 8km, 6km & 5km Finishers",
+    text: "The fastest Open, Men Under 20 Years, Women Under 20 Years, and Corporate Run teams begin crossing the finish line. Cheer them on!",
     highlight: false,
   },
   {
     time: "08:30",
-    title: "2km Youth Finishers",
-    text: "Ages 13–15 complete their route and head to the refreshment zone.",
+    title: "2km Category Finishers",
+    text: "2km runners in 13-15 years, Family Run, and 50-60 years complete their route and head to the refreshment zone.",
     highlight: false,
   },
   {
     time: "09:00",
     title: "1km & 500m Finishers",
-    text: "Masters (50–60) and Seniors (61+) cross the finish line — a huge cheer for everyone!",
+    text: "Kids (9–12) and Seniors (61+) cross the finish line — a huge cheer for everyone!",
     highlight: false,
   },
   {
@@ -66,7 +93,7 @@ export default function TimelinePage() {
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage:
-                "url('https://ik.imagekit.io/eizd2ue5a/Nairobi-City-Marathon.jpg?updatedAt=1777467867854')",
+                "url('https://ik.imagekit.io/eizd2ue5a/wesbite2.png')",
             }}
           />
           <div
@@ -214,6 +241,9 @@ export default function TimelinePage() {
           </div>
         </div>
       </section>
+
+      {/* ── PARTNERS ──────────────────────────────────────── */}
+      <PartnersSection />
 
       {/* ── CONTACT ───────────────────────────────────────── */}
       <ContactSection />

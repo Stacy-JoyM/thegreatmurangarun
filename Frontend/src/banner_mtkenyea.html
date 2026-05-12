@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenya Run — Mt. Kenya</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #060606;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .banner {
+    width: 100%;
+    max-width: 1200px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    background: #0d0d0d;
+  }
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .z1 { z-index: 1; }
+  .z2 { z-index: 2; }
+  .z3 { z-index: 3; }
+  .z4 { z-index: 4; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     BANNER 2 — MT. KENYA SCENIC
+══════════════════════════════════════ -->
+<div class="banner">
+
+  <svg class="layer z1" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+    <defs>
+      <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#080808"/>
+        <stop offset="28%" stop-color="#0e0e14"/>
+        <stop offset="55%" stop-color="#1a0a04"/>
+        <stop offset="78%" stop-color="#2e1604"/>
+        <stop offset="100%" stop-color="#180c02"/>
+      </linearGradient>
+      <linearGradient id="peak2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#d0d4d8"/>
+        <stop offset="18%" stop-color="#909498"/>
+        <stop offset="55%" stop-color="#3c3830"/>
+        <stop offset="100%" stop-color="#1a1410"/>
+      </linearGradient>
+      <linearGradient id="ridge2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#504840"/>
+        <stop offset="100%" stop-color="#181410"/>
+      </linearGradient>
+      <linearGradient id="forest2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#0e1c08"/>
+        <stop offset="100%" stop-color="#080e04"/>
+      </linearGradient>
+      <radialGradient id="glow2" cx="0.5" cy="0.55" r="0.4">
+        <stop offset="0%"  stop-color="#cc3300" stop-opacity="0.55"/>
+        <stop offset="50%" stop-color="#880000" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <filter id="b2a"><feGaussianBlur stdDeviation="4"/></filter>
+      <filter id="b2b"><feGaussianBlur stdDeviation="12"/></filter>
+      <filter id="b2c"><feGaussianBlur stdDeviation="2"/></filter>
+    </defs>
+
+    <rect width="1200" height="400" fill="url(#sky2)"/>
+    <rect width="1200" height="400" fill="url(#glow2)"/>
+
+    <!-- Clouds -->
+    <ellipse cx="180"  cy="80"  rx="160" ry="20" fill="#120808" filter="url(#b2a)" opacity="0.7"/>
+    <ellipse cx="550"  cy="65"  rx="200" ry="18" fill="#100606" filter="url(#b2a)" opacity="0.6"/>
+    <ellipse cx="900"  cy="75"  rx="180" ry="16" fill="#120808" filter="url(#b2a)" opacity="0.65"/>
+    <ellipse cx="1080" cy="58"  rx="140" ry="14" fill="#100606" filter="url(#b2a)" opacity="0.5"/>
+    <ellipse cx="350"  cy="95"  rx="120" ry="12" fill="#141010" filter="url(#b2b)" opacity="0.35"/>
+
+    <!-- Horizon glow -->
+    <ellipse cx="600" cy="218" rx="420" ry="28" fill="#cc3300" opacity="0.22" filter="url(#b2b)"/>
+    <ellipse cx="600" cy="218" rx="220" ry="12" fill="#ff5500" opacity="0.18" filter="url(#b2a)"/>
+
+    <!-- Mt Kenya main massif — centred, dramatic -->
+    <!-- Left shoulder -->
+    <path d="M180,400 Q280,320 360,240 Q400,200 420,185 Q440,170 445,165 L450,162 L455,165 Q460,170 480,185 Q500,200 540,240 Q620,320 720,400Z"
+          fill="url(#peak2)"/>
+    <!-- Snow cap main -->
+    <path d="M432,140 Q450,125 468,140 Q462,158 450,172 Q438,158 432,140Z" fill="white" opacity="0.88"/>
+    <path d="M440,148 Q450,135 460,148 Q455,162 450,168 Q445,162 440,148Z" fill="white" opacity="0.55"/>
+
+    <!-- Second peak (Batian) -->
+    <path d="M480,400 Q560,330 610,265 Q635,232 642,218 Q648,206 650,200 L654,196 L658,200 Q660,206 666,218 Q673,232 698,265 Q748,330 828,400Z"
+          fill="url(#peak2)" opacity="0.92"/>
+    <path d="M642,178 Q654,165 666,178 Q661,196 654,208 Q647,196 642,178Z" fill="white" opacity="0.78"/>
+
+    <!-- Third smaller peak right -->
+    <path d="M820,400 Q875,348 910,298 Q928,272 932,260 L936,255 L940,260 Q944,272 962,298 Q997,348 1052,400Z"
+          fill="url(#ridge2)" opacity="0.75"/>
+    <path d="M930,244 Q936,235 942,244 Q939,255 936,262 Q933,255 930,244Z" fill="white" opacity="0.5"/>
+
+    <!-- Ridge / shoulder connecting peaks -->
+    <path d="M0,310 Q150,280 350,295 Q420,300 450,290 L450,310 Q420,318 350,312 Q150,298 0,328Z" fill="url(#ridge2)" opacity="0.6"/>
+    <path d="M750,290 Q900,270 1050,285 Q1130,292 1200,278 L1200,310 Q1130,312 1050,305 Q900,290 750,310Z" fill="url(#ridge2)" opacity="0.55"/>
+
+    <!-- Forest band -->
+    <path d="M0,308 Q200,290 400,300 Q600,310 800,294 Q1000,278 1200,292 L1200,360 L0,360Z" fill="url(#forest2)"/>
+
+    <!-- Tree silhouettes on ridgeline -->
+    <g fill="#08100a" opacity="0.9">
+      <rect x="10"  y="292" width="5" height="30" rx="1.5"/>
+      <ellipse cx="12"  cy="290" rx="9"  ry="16"/>
+      <rect x="30"  y="286" width="5" height="36" rx="1.5"/>
+      <ellipse cx="32"  cy="284" rx="10" ry="19"/>
+      <rect x="52"  y="290" width="4" height="28" rx="1.5"/>
+      <ellipse cx="54"  cy="288" rx="8"  ry="14"/>
+      <rect x="70"  y="284" width="5" height="34" rx="1.5"/>
+      <ellipse cx="72"  cy="282" rx="10" ry="18"/>
+      <rect x="90"  y="289" width="4" height="28" rx="1.5"/>
+      <ellipse cx="92"  cy="287" rx="8"  ry="14"/>
+      <rect x="108" y="293" width="4" height="26" rx="1.5"/>
+      <ellipse cx="110" cy="291" rx="8"  ry="13"/>
+      <rect x="840" y="280" width="5" height="32" rx="1.5"/>
+      <ellipse cx="842" cy="278" rx="9"  ry="17"/>
+      <rect x="860" y="285" width="4" height="28" rx="1.5"/>
+      <ellipse cx="862" cy="283" rx="8"  ry="15"/>
+      <rect x="878" y="278" width="5" height="34" rx="1.5"/>
+      <ellipse cx="880" cy="276" rx="10" ry="18"/>
+      <rect x="898" y="282" width="4" height="30" rx="1.5"/>
+      <ellipse cx="900" cy="280" rx="8"  ry="15"/>
+      <rect x="916" y="288" width="4" height="26" rx="1.5"/>
+      <ellipse cx="918" cy="286" rx="8"  ry="13"/>
+      <rect x="934" y="282" width="5" height="30" rx="1.5"/>
+      <ellipse cx="936" cy="280" rx="9"  ry="16"/>
+      <rect x="954" y="278" width="5" height="34" rx="1.5"/>
+      <ellipse cx="956" cy="276" rx="10" ry="17"/>
+      <rect x="974" y="284" width="4" height="28" rx="1.5"/>
+      <ellipse cx="976" cy="282" rx="8"  ry="14"/>
+      <rect x="990" y="290" width="4" height="26" rx="1.5"/>
+      <ellipse cx="992" cy="288" rx="8"  ry="13"/>
+    </g>
+
+    <!-- Open moorland / ground -->
+    <path d="M0,348 Q300,335 600,344 Q900,352 1200,338 L1200,400 L0,400Z" fill="#0a0e06"/>
+
+    <!-- Runner silhouette on moorland track -->
+    <g opacity="0.5" transform="translate(578,352)">
+      <ellipse cx="10" cy="0"  rx="6" ry="7" fill="#1a0a00"/>
+      <rect x="6"  y="7"  width="9" height="18" rx="2" fill="#150700"/>
+      <path d="M6,11  L-2,18"  stroke="#1a0a00" stroke-width="4" stroke-linecap="round"/>
+      <path d="M15,11 L23,18"  stroke="#1a0a00" stroke-width="4" stroke-linecap="round"/>
+      <path d="M6,25  L3,38"   stroke="#1a0a00" stroke-width="4" stroke-linecap="round"/>
+      <path d="M15,25 L12,40"  stroke="#1a0a00" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <!-- Runner 2 slightly behind -->
+    <g opacity="0.32" transform="translate(556,358)">
+      <ellipse cx="9"  cy="0"  rx="5" ry="6" fill="#180800"/>
+      <rect x="5"  y="6"  width="8" height="16" rx="2" fill="#120600"/>
+      <path d="M5,10  L-1,16" stroke="#180800" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M13,10 L19,16" stroke="#180800" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M5,22  L3,33"  stroke="#180800" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M13,22 L15,33" stroke="#180800" stroke-width="3.5" stroke-linecap="round"/>
+    </g>
+  </svg>
+
+  <!-- Overlay -->
+  <div class="layer z2" style="background:linear-gradient(180deg,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.22) 42%,rgba(0,0,0,0.42) 70%,rgba(0,0,0,0.85) 100%);"></div>
+
+  <!-- Halftone TL red -->
+  <svg class="layer z3" viewBox="0 0 320 320" style="position:absolute;top:0;left:0;width:320px;height:320px;">
+    <defs>
+      <pattern id="dr2" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="5" fill="#cc0000"/></pattern>
+      <radialGradient id="fr2" cx="0" cy="0" r="1"><stop offset="0%" stop-color="white"/><stop offset="70%" stop-color="white" stop-opacity="0"/></radialGradient>
+      <mask id="mr2"><rect width="320" height="320" fill="url(#fr2)"/></mask>
+    </defs>
+    <rect width="320" height="320" fill="url(#dr2)" mask="url(#mr2)"/>
+  </svg>
+
+  <!-- Halftone BL green -->
+  <svg class="layer z3" viewBox="0 0 260 260" style="position:absolute;bottom:0;left:0;width:260px;height:260px;">
+    <defs>
+      <pattern id="dg2" width="17" height="17" patternUnits="userSpaceOnUse"><circle cx="8.5" cy="8.5" r="4" fill="#00cc44"/></pattern>
+      <radialGradient id="fg2g" cx="0" cy="1" r="1"><stop offset="0%" stop-color="white"/><stop offset="70%" stop-color="white" stop-opacity="0"/></radialGradient>
+      <mask id="mg2"><rect width="260" height="260" fill="url(#fg2g)"/></mask>
+    </defs>
+    <rect width="260" height="260" fill="url(#dg2)" mask="url(#mg2)"/>
+  </svg>
+
+  <!-- Speed lines -->
+  <svg class="layer z4" viewBox="0 0 1200 400" preserveAspectRatio="none" width="100%" height="100%">
+    <defs>
+      <filter id="gr2"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      <filter id="gg2"><feGaussianBlur stdDeviation="2"   result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <path d="M-20,48 Q310,26 660,98 Q915,148 1240,120" stroke="#cc0000" stroke-width="1.8" fill="none" filter="url(#gr2)" stroke-dasharray="1600" stroke-dashoffset="1600">
+      <animate attributeName="stroke-dashoffset" from="1600" to="-300" dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.88;1" dur="2.6s" repeatCount="indefinite"/>
+    </path>
+    <path d="M-20,74 Q290,50 635,120 Q890,168 1240,142" stroke="#cc0000" stroke-width="0.85" fill="none" stroke-dasharray="1600" stroke-dashoffset="1600">
+      <animate attributeName="stroke-dashoffset" from="1600" to="-300" dur="2.6s" begin="0.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.42;0.42;0" keyTimes="0;0.08;0.88;1" dur="2.6s" begin="0.2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M-20,308 Q290,285 610,328 Q868,360 1240,340" stroke="#00cc44" stroke-width="1.5" fill="none" filter="url(#gg2)" stroke-dasharray="1500" stroke-dashoffset="1500">
+      <animate attributeName="stroke-dashoffset" from="1500" to="-300" dur="3.0s" begin="0.65s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.88;1" dur="3.0s" begin="0.65s" repeatCount="indefinite"/>
+    </path>
+    <path d="M-20,332 Q272,308 598,350 Q852,380 1240,362" stroke="#00cc44" stroke-width="0.7" fill="none" stroke-dasharray="1500" stroke-dashoffset="1500">
+      <animate attributeName="stroke-dashoffset" from="1500" to="-300" dur="3.0s" begin="0.85s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.36;0.36;0" keyTimes="0;0.1;0.88;1" dur="3.0s" begin="0.85s" repeatCount="indefinite"/>
+    </path>
+  </svg>
+
+</div>
+
+
+
+</body>
+</html>

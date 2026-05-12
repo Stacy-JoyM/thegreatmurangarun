@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-
-const brandIconUrl = "https://ik.imagekit.io/eizd2ue5a/icon_image.JPG";
+import FooterSocialLinks from "@/components/footer-social-links";
+import { BRAND_ICON_URL } from "@/lib/brand-icon";
+import { SITE_TAGLINE } from "@/lib/site-tagline";
 
 export default function ContactSection() {
   return (
@@ -19,7 +20,7 @@ export default function ContactSection() {
           <div className="rounded-xl border border-white/10 bg-black/10 p-5 sm:bg-black/5 sm:p-5">
             <div className="flex items-center gap-3">
               <Image
-                src={brandIconUrl}
+                src={BRAND_ICON_URL}
                 alt="The Great Muranga Community Run logo"
                 width={80}
                 height={80}
@@ -28,10 +29,13 @@ export default function ContactSection() {
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.14em]">The Great Muranga</p>
                 <p className="text-sm font-bold uppercase tracking-[0.14em]">Community Run</p>
+                <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[color:var(--yellow)]">
+                  {SITE_TAGLINE}
+                </p>
               </div>
             </div>
             <p className="mt-4 max-w-xs text-[13px] leading-6 text-white/75">
-              A community-first running event in Muranga, Kenya. Open to all ages
+              {SITE_TAGLINE}. A community-first running event in Muranga, Kenya. Elite Men and Women
               and paces. Registration is free and online.
             </p>
             <button
@@ -100,8 +104,10 @@ export default function ContactSection() {
           </div>
         </div>
 
+        <FooterSocialLinks />
+
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-start gap-2 border-t border-white/20 pt-6 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col items-start gap-2 border-t border-white/20 pt-6 sm:mt-10 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[12px] text-white/50">
             © 2026 The Great Muranga Community Run. All rights reserved.
           </p>

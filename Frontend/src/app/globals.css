@@ -5,7 +5,8 @@
   --green-dark:   #004d00;
   --green-mid:    #008000;
   --green-soft:   #e4ede8;
-  --red:          #a62035;
+  /** Kenya flag stripe red (“Post Office Red” / BS 0-006 style, ≈ #BB0000) */
+  --red:          #BB0000;
   --yellow:       #FFC300;
   --cream:        #f7f5ef;
   --ink:          #111111;
@@ -24,6 +25,7 @@ html, body {
   color: var(--ink);
   font-family: var(--font-body), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 body {
@@ -104,8 +106,33 @@ button, input, select, textarea, .eyebrow, .race-day-pill {
   animation: siteMarquee 28s linear infinite;
 }
 
-.site-marquee-track:hover {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .site-marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes partnerIconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.partner-icon-motion {
+  animation: partnerIconFloat 3.8s ease-in-out infinite;
+}
+
+@media (max-width: 640px) {
+  .site-marquee-track {
+    animation-duration: 20s;
+  }
+
+  .partner-icon-motion {
+    animation-duration: 3s;
+  }
 }
 
 @keyframes movingGlowBorder {
@@ -128,16 +155,14 @@ button, input, select, textarea, .eyebrow, .race-day-pill {
   animation: movingGlowBorder 3.2s linear infinite;
 }
 
-.muranga-red-dots {
-  color: transparent;
-  background-image:
-    radial-gradient(circle, rgba(166, 32, 53, 0.98) 1.8px, transparent 1.8px),
-    linear-gradient(var(--yellow), var(--yellow));
-  background-size: 12px 12px, 100% 100%;
-  background-position: 0 0, 0 0;
-  background-repeat: repeat, no-repeat;
-  background-clip: text;
-  -webkit-background-clip: text;
+/* Hero: “Muranga” — black fill, white outline (Tukimbie Muranga) */
+.muranga-black-outline {
+  color: var(--ink);
+  -webkit-text-stroke: clamp(2px, 0.055em, 6px) #ffffff;
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 1px rgba(0, 0, 0, 0.35),
+    0 2px 12px rgba(0, 0, 0, 0.25);
 }
 
 ::selection {

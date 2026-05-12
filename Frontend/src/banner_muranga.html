@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!-- Keep in sync: copy to public/banner_muranga.html for the live home hero (/banner_muranga.html). -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenya Run — Muranga Village</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #060606;
+  }
+  body {
+    display: block;
+    position: relative;
+    min-height: 100%;
+    padding: 0;
+  }
+
+  .banner {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    min-height: 100%;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #0d0d0d;
+  }
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .z1 { z-index: 1; }
+  .z2 { z-index: 2; }
+  .z3 { z-index: 3; }
+  .z4 { z-index: 4; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     BANNER 1 — MURANGA VILLAGE
+══════════════════════════════════════ -->
+<div class="banner">
+
+  <!-- SCENE -->
+  <svg class="layer z1" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+    <defs>
+      <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#0d0d0d"/>
+        <stop offset="30%" stop-color="#111a08"/>
+        <stop offset="65%" stop-color="#1e3010"/>
+        <stop offset="100%" stop-color="#0f1a08"/>
+      </linearGradient>
+      <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#1e3a10"/>
+        <stop offset="100%" stop-color="#0a1205"/>
+      </linearGradient>
+      <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#2a4a18"/>
+        <stop offset="100%" stop-color="#0e1a08"/>
+      </linearGradient>
+      <linearGradient id="path1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#7a4220"/>
+        <stop offset="100%" stop-color="#3a1a08"/>
+      </linearGradient>
+      <linearGradient id="fg1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#111a08"/>
+        <stop offset="100%" stop-color="#080d04"/>
+      </linearGradient>
+      <radialGradient id="mist1" cx="0.5" cy="0.5" r="0.7">
+        <stop offset="0%"  stop-color="#1e3a10" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <filter id="f1"><feGaussianBlur stdDeviation="5"/></filter>
+      <filter id="f2"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="f3"><feGaussianBlur stdDeviation="2"/></filter>
+    </defs>
+
+    <!-- Sky -->
+    <rect width="1200" height="400" fill="url(#sky1)"/>
+
+    <!-- Distant hazy mountains -->
+    <path d="M0,200 Q100,155 200,170 Q320,188 420,145 Q520,100 620,155 Q720,205 820,160 Q920,115 1020,150 Q1100,178 1200,140 L1200,260 L0,260Z"
+          fill="#142010" filter="url(#f2)" opacity="0.7"/>
+    <path d="M0,220 Q150,185 280,200 Q400,215 540,180 Q660,148 780,185 Q900,218 1040,188 Q1130,168 1200,185 L1200,280 L0,280Z"
+          fill="#182808" filter="url(#f1)" opacity="0.8"/>
+
+    <!-- Rolling hills mid -->
+    <path d="M0,255 Q80,230 180,242 Q300,256 420,228 Q540,200 660,228 Q780,256 900,232 Q1020,208 1120,230 Q1160,238 1200,222 L1200,340 L0,340Z"
+          fill="url(#hill1)"/>
+    <path d="M0,278 Q120,255 240,268 Q360,280 480,258 Q600,235 720,260 Q840,282 960,258 Q1080,234 1200,258 L1200,360 L0,360Z"
+          fill="url(#hill2)"/>
+
+    <!-- Foreground ground -->
+    <path d="M0,310 Q200,295 400,308 Q600,320 800,304 Q1000,288 1200,302 L1200,400 L0,400Z"
+          fill="url(#fg1)"/>
+
+    <!-- Red earth path winding from bottom-center into distance -->
+    <path d="M540,400 Q548,360 552,320 Q556,280 554,248 Q552,225 548,210"
+          stroke="url(#path1)" stroke-width="38" fill="none" stroke-linecap="round" opacity="0.8"/>
+    <path d="M538,400 Q546,360 550,320 Q554,280 552,248 Q550,225 546,210"
+          stroke="#9a5228" stroke-width="2.5" fill="none" opacity="0.35"/>
+    <path d="M578,400 Q568,360 566,320 Q562,280 560,248 Q558,225 554,210"
+          stroke="#9a5228" stroke-width="2" fill="none" opacity="0.2"/>
+
+    <!-- Banana trees — left cluster -->
+    <g transform="translate(80,220)">
+      <rect x="0"  y="60" width="9" height="90" rx="3" fill="#1a2a0a"/>
+      <path d="M4,60  Q-28,28  -52,22" stroke="#2a4a12" stroke-width="14" fill="none" stroke-linecap="round"/>
+      <path d="M4,60  Q-15,32  -8,48"  stroke="#243a10" stroke-width="11" fill="none" stroke-linecap="round"/>
+      <path d="M4,60  Q38,26   60,30"  stroke="#2e5214" stroke-width="13" fill="none" stroke-linecap="round"/>
+      <path d="M4,60  Q22,38   38,44"  stroke="#224010" stroke-width="10" fill="none" stroke-linecap="round"/>
+      <rect x="18" y="75" width="8"  height="75" rx="3" fill="#182408"/>
+      <path d="M22,75 Q-4,46   -24,40" stroke="#264812" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <path d="M22,75 Q48,44   68,48"  stroke="#2a4e14" stroke-width="11" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- Banana trees — right of path -->
+    <g transform="translate(660,235)">
+      <rect x="0"  y="50" width="8" height="80" rx="3" fill="#1a2a08"/>
+      <path d="M4,50  Q-24,20  -44,16" stroke="#284a12" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <path d="M4,50  Q32,20   54,24"  stroke="#2c5014" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <path d="M4,50  Q16,28   28,34"  stroke="#1e3c0e" stroke-width="9"  fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- Eucalyptus trees right side -->
+    <g fill="#0c1405" opacity="0.95">
+      <rect x="1040" y="215" width="7" height="130" rx="2"/>
+      <ellipse cx="1043" cy="213" rx="18" ry="38"/>
+      <rect x="1060" y="228" width="6" height="115" rx="2"/>
+      <ellipse cx="1063" cy="226" rx="15" ry="32"/>
+      <rect x="1078" y="220" width="6" height="122" rx="2"/>
+      <ellipse cx="1081" cy="218" rx="16" ry="34"/>
+      <rect x="1095" y="232" width="5" height="108" rx="2"/>
+      <ellipse cx="1097" cy="230" rx="13" ry="28"/>
+      <rect x="1110" y="225" width="6" height="118" rx="2"/>
+      <ellipse cx="1113" cy="223" rx="15" ry="30"/>
+      <rect x="1128" y="218" width="7" height="125" rx="2"/>
+      <ellipse cx="1131" cy="216" rx="17" ry="36"/>
+      <rect x="1148" y="228" width="5" height="112" rx="2"/>
+      <ellipse cx="1150" cy="226" rx="14" ry="29"/>
+      <rect x="1163" y="222" width="6" height="118" rx="2"/>
+      <ellipse cx="1166" cy="220" rx="15" ry="31"/>
+      <rect x="1180" y="230" width="5" height="108" rx="2"/>
+      <ellipse cx="1182" cy="228" rx="13" ry="27"/>
+    </g>
+
+    <!-- Traditional Muranga rondavel huts -->
+    <!-- Hut cluster left-center -->
+    <g transform="translate(300,252)">
+      <!-- Hut 1 -->
+      <rect x="0"  y="28" width="48" height="36" rx="2" fill="#1e1408"/>
+      <path d="M-6,30 Q24,0  54,30Z" fill="#2a1c0a"/>
+      <line x1="8"  y1="30" x2="12" y2="6"  stroke="#3a2810" stroke-width="1.2" opacity="0.5"/>
+      <line x1="18" y1="30" x2="20" y2="2"  stroke="#3a2810" stroke-width="1.2" opacity="0.5"/>
+      <line x1="28" y1="30" x2="28" y2="1"  stroke="#3a2810" stroke-width="1.2" opacity="0.5"/>
+      <line x1="38" y1="30" x2="36" y2="3"  stroke="#3a2810" stroke-width="1.2" opacity="0.5"/>
+      <rect x="19" y="46" width="10" height="18" rx="1" fill="#100a04"/>
+      <!-- Hut 2 (behind/right) -->
+      <rect x="52" y="34" width="40" height="30" rx="2" fill="#1a1006" opacity="0.9"/>
+      <path d="M46,36 Q72,10  98,36Z" fill="#241808" opacity="0.9"/>
+      <rect x="64" y="48" width="9"  height="16" rx="1" fill="#0e0804" opacity="0.9"/>
+      <!-- smoke -->
+      <path d="M24,0 Q20,-16 24,-30 Q28,-44 22,-58" stroke="rgba(255,255,255,0.06)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- Hut cluster right-center -->
+    <g transform="translate(800,260)" opacity="0.75">
+      <rect x="0"  y="24" width="42" height="32" rx="2" fill="#1c1208"/>
+      <path d="M-4,26 Q21,0  46,26Z" fill="#281a08"/>
+      <rect x="15" y="40" width="9" height="16" rx="1" fill="#100804"/>
+      <rect x="46" y="30" width="36" height="26" rx="2" fill="#181006" opacity="0.85"/>
+      <path d="M42,32 Q64,8  88,32Z" fill="#221608" opacity="0.85"/>
+    </g>
+
+    <!-- Atmosphere -->
+    <rect width="1200" height="400" fill="url(#mist1)" opacity="0.4"/>
+
+    <!-- Distant runner figures on path -->
+    <g opacity="0.55" transform="translate(546,230)">
+      <ellipse cx="5" cy="0"  rx="3.5" ry="5" fill="#0d0d0d"/>
+      <line x1="5" y1="5"  x2="2"  y2="16" stroke="#0d0d0d" stroke-width="2.5"/>
+      <line x1="5" y1="5"  x2="8"  y2="16" stroke="#0d0d0d" stroke-width="2.5"/>
+      <line x1="2" y1="9"  x2="-1" y2="13" stroke="#0d0d0d" stroke-width="2"/>
+      <line x1="8" y1="9"  x2="11" y2="13" stroke="#0d0d0d" stroke-width="2"/>
+    </g>
+    <g opacity="0.4" transform="translate(558,238)">
+      <ellipse cx="5" cy="0"  rx="3" ry="4.5" fill="#0d0d0d"/>
+      <line x1="5" y1="4"  x2="2"  y2="14" stroke="#0d0d0d" stroke-width="2"/>
+      <line x1="5" y1="4"  x2="8"  y2="14" stroke="#0d0d0d" stroke-width="2"/>
+    </g>
+  </svg>
+
+  <!-- Dark overlay -->
+  <div class="layer z2" style="background:linear-gradient(100deg,rgba(0,0,0,0.80) 0%,rgba(0,0,0,0.35) 45%,rgba(0,0,0,0.15) 100%);"></div>
+
+  <!-- Halftone TL red -->
+  <svg class="layer z3" viewBox="0 0 320 320" style="position:absolute;top:0;left:0;width:320px;height:320px;">
+    <defs>
+      <pattern id="dr1" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="5" fill="#cc0000"/></pattern>
+      <radialGradient id="fr1" cx="0" cy="0" r="1"><stop offset="0%" stop-color="white"/><stop offset="70%" stop-color="white" stop-opacity="0"/></radialGradient>
+      <mask id="mr1"><rect width="320" height="320" fill="url(#fr1)"/></mask>
+    </defs>
+    <rect width="320" height="320" fill="url(#dr1)" mask="url(#mr1)"/>
+  </svg>
+
+  <!-- Halftone BL green -->
+  <svg class="layer z3" viewBox="0 0 260 260" style="position:absolute;bottom:0;left:0;width:260px;height:260px;">
+    <defs>
+      <pattern id="dg1" width="17" height="17" patternUnits="userSpaceOnUse"><circle cx="8.5" cy="8.5" r="4" fill="#00cc44"/></pattern>
+      <radialGradient id="fg1g" cx="0" cy="1" r="1"><stop offset="0%" stop-color="white"/><stop offset="70%" stop-color="white" stop-opacity="0"/></radialGradient>
+      <mask id="mg1"><rect width="260" height="260" fill="url(#fg1g)"/></mask>
+    </defs>
+    <rect width="260" height="260" fill="url(#dg1)" mask="url(#mg1)"/>
+  </svg>
+
+  <!-- Animated speed lines -->
+  <svg class="layer z4" viewBox="0 0 1200 400" preserveAspectRatio="none" width="100%" height="100%">
+    <defs>
+      <filter id="gr1"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      <filter id="gg1"><feGaussianBlur stdDeviation="2"   result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <path d="M-20,55 Q300,32 650,105 Q900,155 1240,128" stroke="#cc0000" stroke-width="1.8" fill="none" filter="url(#gr1)" stroke-dasharray="1600" stroke-dashoffset="1600">
+      <animate attributeName="stroke-dashoffset" from="1600" to="-300" dur="2.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.88;1" dur="2.8s" repeatCount="indefinite"/>
+    </path>
+    <path d="M-20,82 Q280,55 620,128 Q875,175 1240,150" stroke="#cc0000" stroke-width="0.9" fill="none" stroke-dasharray="1600" stroke-dashoffset="1600">
+      <animate attributeName="stroke-dashoffset" from="1600" to="-300" dur="2.8s" begin="0.18s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.45;0.45;0" keyTimes="0;0.08;0.88;1" dur="2.8s" begin="0.18s" repeatCount="indefinite"/>
+    </path>
+    <path d="M-20,310 Q280,288 600,332 Q860,365 1240,345" stroke="#00cc44" stroke-width="1.5" fill="none" filter="url(#gg1)" stroke-dasharray="1500" stroke-dashoffset="1500">
+      <animate attributeName="stroke-dashoffset" from="1500" to="-300" dur="3.2s" begin="0.7s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.88;1" dur="3.2s" begin="0.7s" repeatCount="indefinite"/>
+    </path>
+    <path d="M-20,335 Q265,312 585,355 Q845,385 1240,368" stroke="#00cc44" stroke-width="0.7" fill="none" stroke-dasharray="1500" stroke-dashoffset="1500">
+      <animate attributeName="stroke-dashoffset" from="1500" to="-300" dur="3.2s" begin="0.9s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.38;0.38;0" keyTimes="0;0.1;0.88;1" dur="3.2s" begin="0.9s" repeatCount="indefinite"/>
+    </path>
+  </svg>
+
+</div>
+
+
+
+</body>
+</html>

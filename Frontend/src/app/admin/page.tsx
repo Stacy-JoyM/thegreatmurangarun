@@ -1,47 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
-const brandIconUrl = "https://ik.imagekit.io/eizd2ue5a/icon_image.JPG";
+import { BRAND_ICON_URL } from "@/lib/brand-icon";
 
 /* ── Types ───────────────────────────────────────────────── */
-type Category = "10km" | "8km" | "6km" | "2km" | "1km" | "500m";
+type Category = "10km" | "8km" | "6km" | "5km" | "2km" | "2km-family" | "1km" | "500m";
 
 type Participant = {
-  id: number;
+  id: string;
   fullName: string;
   phone: string;
   email: string;
   category: Category;
-  emergencyContact: string;
   registeredAt: string;
   attended: boolean;
 };
-
-/* ── Mock data (replace with Supabase fetch later) ───────── */
-const SEED: Participant[] = [
-  { id: 1,  fullName: "Peter Kamau",     phone: "0712 345 678", email: "peter@example.com",  category: "10km", emergencyContact: "Mary +254 700 333 444", registeredAt: "2026-04-10", attended: false },
-  { id: 2,  fullName: "James Njoroge",   phone: "0723 456 789", email: "",                   category: "10km", emergencyContact: "Ann +254 700 111 222",  registeredAt: "2026-04-10", attended: false },
-  { id: 3,  fullName: "David Kiprotich", phone: "0734 567 890", email: "",                   category: "8km",  emergencyContact: "Paul +254 700 555 666", registeredAt: "2026-04-11", attended: false },
-  { id: 4,  fullName: "Kevin Mwangi",    phone: "0745 678 901", email: "kevin@example.com",  category: "8km",  emergencyContact: "Eve +254 711 100 200",  registeredAt: "2026-04-11", attended: false },
-  { id: 5,  fullName: "Grace Njeri",     phone: "0756 789 012", email: "grace@example.com",  category: "2km",  emergencyContact: "Tom +254 700 999 000",  registeredAt: "2026-04-12", attended: false },
-  { id: 6,  fullName: "Faith Akinyi",    phone: "0767 890 123", email: "",                   category: "2km",  emergencyContact: "Mark +254 711 300 400", registeredAt: "2026-04-12", attended: false },
-  { id: 7,  fullName: "Jane Wanjiru",    phone: "0778 901 234", email: "jane@example.com",   category: "1km",  emergencyContact: "John +254 700 111 222", registeredAt: "2026-04-13", attended: false },
-  { id: 8,  fullName: "Eunice Muthoni",  phone: "0789 012 345", email: "",                   category: "1km",  emergencyContact: "Ken +254 711 700 800",  registeredAt: "2026-04-13", attended: false },
-  { id: 9,  fullName: "Charles Gitahi",  phone: "0790 123 456", email: "",                   category: "500m", emergencyContact: "Liz +254 711 900 000",  registeredAt: "2026-04-14", attended: false },
-  { id: 10, fullName: "Lucy Waithera",   phone: "0700 234 567", email: "lucy@example.com",   category: "500m", emergencyContact: "Sue +254 711 500 600",  registeredAt: "2026-04-14", attended: false },
-];
 
 const CATEGORY_COLOR: Record<Category, string> = {
   "10km": "bg-[color:var(--green)] text-white",
   "8km":  "bg-[color:var(--ink)] text-white",
   "6km":  "bg-[color:var(--yellow)] text-[color:var(--ink)]",
+  "5km":  "bg-[color:var(--green)] text-white",
   "2km":  "bg-[color:var(--green-soft)] text-[color:var(--ink)]",
+  "2km-family": "bg-[color:var(--green-soft)] text-[color:var(--ink)]",
   "1km":  "bg-[color:var(--green-soft)] text-[color:var(--ink)]",
   "500m": "bg-[color:var(--yellow)] text-[color:var(--ink)]",
 };
+
+function getPsReservationNumber(name: string): number {
+  const match = /^PS Reservation\s+(\d+)$/i.exec(name.trim());
+  if (!match) return Number.POSITIVE_INFINITY;
+  return Number(match[1]);
+}
 
 /* ── Admin page ──────────────────────────────────────────── */
 export default function AdminPage() {
@@ -49,7 +41,9 @@ export default function AdminPage() {
   const [pw, setPw]                   = useState("");
   const [pwError, setPwError]         = useState(false);
   const [showPw, setShowPw]           = useState(false);
-  const [participants, setParticipants] = useState<Participant[]>(SEED);
+  const [participants, setParticipants] = useState<Participant[]>([]);
+  const [loadingRows, setLoadingRows] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [search, setSearch]           = useState("");
   const [filterCat, setFilterCat]     = useState<Category | "all">("all");
   const [filterAtt, setFilterAtt]     = useState<"all" | "attended" | "absent">("all");
@@ -64,8 +58,41 @@ export default function AdminPage() {
     }
   };
 
+  useEffect(() => {
+    if (!unlocked) return;
+    let cancelled = false;
+    const load = async () => {
+      setLoadingRows(true);
+      setLoadError(null);
+      try {
+        const response = await fetch("/api/admin/registrations", { cache: "no-store" });
+        const payload = (await response.json()) as { rows?: Participant[]; error?: string };
+        if (!response.ok) {
+          throw new Error(payload.error ?? "Could not fetch registrations.");
+        }
+        if (!cancelled) {
+          setParticipants(payload.rows ?? []);
+        }
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Could not fetch registrations.";
+        if (!cancelled) {
+          setLoadError(message);
+          setParticipants([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingRows(false);
+        }
+      }
+    };
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, [unlocked]);
+
   /* ── Attendance toggle ── */
-  const toggleAttendance = (id: number) => {
+  const toggleAttendance = (id: string) => {
     setParticipants((prev) =>
       prev.map((p) => (p.id === id ? { ...p, attended: !p.attended } : p))
     );
@@ -92,6 +119,19 @@ export default function AdminPage() {
       (filterAtt === "absent" && !p.attended);
     return matchSearch && matchCat && matchAtt;
   });
+  const topTenApplicants = filtered
+    .filter((p) => {
+      const reservationNo = getPsReservationNumber(p.fullName);
+      return reservationNo >= 1 && reservationNo <= 10;
+    })
+    .sort((a, b) => getPsReservationNumber(a.fullName) - getPsReservationNumber(b.fullName));
+  const remainingApplicants = filtered
+    .filter((p) => {
+      const reservationNo = getPsReservationNumber(p.fullName);
+      return !(reservationNo >= 1 && reservationNo <= 10);
+    })
+    .sort((a, b) => a.fullName.localeCompare(b.fullName, undefined, { sensitivity: "base" }));
+  const tableRows = [...topTenApplicants, ...remainingApplicants];
 
   /* ── Stats ── */
   const total    = participants.length;
@@ -99,7 +139,9 @@ export default function AdminPage() {
   const by10km    = participants.filter((p) => p.category === "10km").length;
   const by8km     = participants.filter((p) => p.category === "8km").length;
   const by6km     = participants.filter((p) => p.category === "6km").length;
+  const by5km     = participants.filter((p) => p.category === "5km").length;
   const by2km     = participants.filter((p) => p.category === "2km").length;
+  const by2kmFamily = participants.filter((p) => p.category === "2km-family").length;
   const by1km     = participants.filter((p) => p.category === "1km").length;
   const by500m   = participants.filter((p) => p.category === "500m").length;
 
@@ -109,7 +151,7 @@ export default function AdminPage() {
       <div className="min-h-screen bg-[color:var(--cream)] flex items-center justify-center px-4">
         <div className="w-full max-w-sm bg-white rounded-sm shadow-md p-8">
           <div className="flex items-center gap-3 mb-8">
-            <Image src={brandIconUrl} alt="Logo" width={64} height={64} className="h-16 w-16 rounded-full object-contain" />
+            <Image src={BRAND_ICON_URL} alt="Logo" width={64} height={64} className="h-16 w-16 rounded-full object-contain" />
             <div>
               <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-[color:var(--ink)]">Muranga Run</p>
               <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[color:var(--ink-muted)]">Admin Access</p>
@@ -185,7 +227,7 @@ export default function AdminPage() {
       <header className="bg-[color:var(--green)] px-4 py-4 sm:px-8">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
-            <Image src={brandIconUrl} alt="Logo" width={56} height={56} className="h-14 w-14 rounded-full object-contain bg-white/10 p-0.5" />
+            <Image src={BRAND_ICON_URL} alt="Logo" width={56} height={56} className="h-14 w-14 rounded-full object-contain bg-white/10 p-0.5" />
             <div>
               <p className="text-sm font-extrabold uppercase text-white">Muranga Run — Admin</p>
               <p className="text-[10px] font-bold uppercase tracking-wide text-white/60">Race Day Dashboard</p>
@@ -208,14 +250,16 @@ export default function AdminPage() {
       <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-8">
 
         {/* ── Stats row ── */}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8 mb-8">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-10 mb-8">
           <StatCard label="Total" value={total} />
           <StatCard label="Attended" value={attended} accent />
-          <StatCard label="10km Elite Athletes, All" value={by10km} />
+          <StatCard label="10km Elite Men and Women" value={by10km} />
           <StatCard label="8km Men Under 20 Years" value={by8km} />
           <StatCard label="6km Women Under 20 Years" value={by6km} />
-          <StatCard label="2km Youth" value={by2km} />
-          <StatCard label="1km Masters" value={by1km} />
+          <StatCard label="5km Corporate Run" value={by5km} />
+          <StatCard label="2km (13-15 years, 50-60 years)" value={by2km} />
+          <StatCard label="2km Family Run" value={by2kmFamily} />
+          <StatCard label="1km Kids (9-12)" value={by1km} />
           <StatCard label="500m Seniors" value={by500m} />
         </div>
 
@@ -255,11 +299,13 @@ export default function AdminPage() {
             className="rounded-sm border border-[color:var(--hairline)] bg-white px-3 py-2 text-sm text-[color:var(--ink)] outline-none focus:border-[color:var(--green)]"
           >
             <option value="all">All categories</option>
-            <option value="10km">10km Elite Athletes, All</option>
+            <option value="10km">10km Elite Men and Women</option>
             <option value="8km">8km Men Under 20</option>
             <option value="6km">6km Women Under 20</option>
-            <option value="2km">2km Youth (13–15)</option>
-            <option value="1km">1km Masters (50–60)</option>
+            <option value="5km">5km Corporate Run</option>
+            <option value="2km">2km (13-15 years, 50-60 years)</option>
+            <option value="2km-family">2km Family Run</option>
+            <option value="1km">1km Kids (9–12)</option>
             <option value="500m">500m Seniors (61+)</option>
           </select>
           <select
@@ -291,13 +337,20 @@ export default function AdminPage() {
         <p className="mb-3 text-[12px] text-[color:var(--ink-muted)]">
           Showing <strong className="text-[color:var(--ink)]">{filtered.length}</strong> of {total} participants
         </p>
-
+        {loadingRows && (
+          <p className="mb-3 text-[12px] font-semibold text-[color:var(--ink-muted)]">Loading registrations...</p>
+        )}
+        {loadError && (
+          <p className="mb-3 rounded-sm border border-[color:var(--hairline)] bg-[color:var(--cream)] px-3 py-2 text-[12px] font-semibold text-[color:var(--ink)]">
+            {loadError}
+          </p>
+        )}
         {/* ── Table ── */}
         <div className="overflow-x-auto rounded-sm bg-white shadow-sm">
           <table className="w-full min-w-[640px] text-sm">
             <thead>
               <tr className="border-b border-[color:var(--hairline)] bg-[color:var(--cream)]">
-                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.14em] text-[color:var(--ink-muted)] w-10">#</th>
+                <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.14em] text-[color:var(--ink-muted)]">Ref</th>
                 <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.14em] text-[color:var(--ink-muted)]">Name</th>
                 <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.14em] text-[color:var(--ink-muted)]">Phone</th>
                 <th className="px-4 py-3 text-left text-[11px] font-bold uppercase tracking-[0.14em] text-[color:var(--ink-muted)]">Category</th>
@@ -306,14 +359,14 @@ export default function AdminPage() {
               </tr>
             </thead>
             <tbody>
-              {filtered.length === 0 ? (
+              {tableRows.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-4 py-10 text-center text-sm text-[color:var(--ink-muted)]">
                     No participants match your filters.
                   </td>
                 </tr>
               ) : (
-                filtered.map((p, i) => (
+                tableRows.map((p, i) => (
                   <tr
                     key={p.id}
                     className={`border-b border-[color:var(--hairline)] transition-colors ${

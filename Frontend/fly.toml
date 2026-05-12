@@ -1,0 +1,28 @@
+# fly.toml app configuration file generated for muranga-community-run-frontend on 2026-05-04T20:22:47+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'muranga-community-run-frontend'
+primary_region = 'jnb'
+
+[build]
+  [build.args]
+    NEXT_PUBLIC_SUPABASE_URL = "https://kztolyewcgpmxbtoknbu.supabase.co"
+    NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6dG9seWV3Y2dwbXhidG9rbmJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MzY1ODUsImV4cCI6MjA5MzUxMjU4NX0.SPnacdWTseMEDbZ2-7TMD_V5Dh3U2nmrumOsREq3UVs"
+
+[env]
+  NEXT_PUBLIC_SITE_URL = "https://greatmurangacommunityrun.co.ke"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpus = 1
+  memory_mb = 1024

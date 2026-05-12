@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import ContactSection from "@/components/contact-section";
+import PartnersSection from "@/components/partners-section";
+
+/** Home hero loads `/banner_muranga.html` from `public/`. Edit `src/banner_muranga.html`, then copy to `public/` to publish. */
+const HERO_BANNER_HTML = "/banner_muranga.html";
 
 export default function Home() {
   return (
@@ -12,18 +16,19 @@ export default function Home() {
           className="relative w-full overflow-hidden"
           style={{ height: "max(100svh, clamp(380px, 92vw, 700px))" }}
         >
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage:
-                "url('https://ik.imagekit.io/eizd2ue5a/1899x879_page-0001.jpg')",
-            }}
+          <iframe
+            title="Muranga village banner animation"
+            src={HERO_BANNER_HTML}
+            className="pointer-events-none absolute inset-0 block h-full w-full scale-[1.01] border-0"
+            loading="eager"
+            referrerPolicy="no-referrer-when-downgrade"
+            aria-hidden
           />
           <div
-            className="absolute inset-0"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(100deg,rgba(10,10,10,0.65) 0%,rgba(10,10,10,0.42) 55%,rgba(10,10,10,0.15) 100%)",
+                "linear-gradient(100deg,rgba(10,10,10,0.35) 0%,rgba(10,10,10,0.22) 55%,rgba(10,10,10,0.08) 100%)",
             }}
           />
           <div className="hero-stripes absolute inset-0 pointer-events-none" />
@@ -36,7 +41,7 @@ export default function Home() {
               >
                 Tukimbie
                 <br />
-                <span className="muranga-red-dots">Muranga.</span>
+                <span className="muranga-black-outline">Muranga.</span>
               </h1>
 
               <div className="race-day-pill race-day-pill-green-yellow mt-6 w-fit">
@@ -48,7 +53,7 @@ export default function Home() {
                 href="/registration"
                 className="mt-6 inline-flex min-h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-sm border border-black bg-white px-6 py-3.5 text-sm font-extrabold uppercase tracking-wide text-[color:var(--ink)] transition hover:bg-[color:var(--yellow)]"
               >
-                Register Free →
+                Register Now →
               </Link>
             </div>
 
@@ -84,22 +89,28 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 xl:grid-cols-6">
-            <CategoryCard distance="10km" title="Elite Athletes, All"
-              blurb="Open to all ages."
-              level="All ages" accent="var(--green)" />
+          <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 xl:grid-cols-8">
+            <CategoryCard distance="10km" title="Elite Men and Women"
+              blurb="Elite Men and Women."
+              level="Elite Men and Women" accent="var(--green)" />
             <CategoryCard distance="8km" title="Men Under 20"
               blurb="For young runners with pace and energy."
               level="Men · Under 20" accent="var(--ink)" />
             <CategoryCard distance="6km" title="Women Under 20"
               blurb="For young women ready to run with confidence."
               level="Women · Under 20" accent="var(--yellow)" accentText="var(--ink)" />
-            <CategoryCard distance="2km" title="Youth"
-              blurb="For runners aged 13 to 15."
-              level="Ages 13 - 15" accent="var(--red)" />
-            <CategoryCard distance="1km" title="Masters"
-              blurb="For runners aged 50 to 60."
-              level="Ages 50 - 60" accent="var(--yellow)" accentText="var(--ink)" />
+            <CategoryCard distance="5km" title="Corporate Run"
+              blurb="KES 1,000 per person. Minimum 6 people."
+              level="Corporate Teams" accent="var(--green)" />
+            <CategoryCard distance="2km" title="2km Categories"
+              blurb={`- 13-15 years\n- 50-60 years`}
+              level="2km Categories" accent="var(--red)" />
+            <CategoryCard distance="2km-family" displayDistance="2km" title="2km Family Run"
+              blurb="KES 1,000 per person. Maximum 5 family members."
+              level="2km Family Run" accent="var(--green)" />
+            <CategoryCard distance="1km" title="Kids"
+              blurb="For kids aged 9 to 12."
+              level="Ages 9 - 12" accent="var(--yellow)" accentText="var(--ink)" />
             <CategoryCard distance="500m" title="Seniors"
               blurb="Open to everyone aged 61 and above."
               level="Ages 61 and above" accent="var(--ink)" />
@@ -178,7 +189,7 @@ export default function Home() {
           <ul className="divide-y divide-[color:var(--hairline)]">
             <ScheduleRow time="06:00" title="Check-in & bib pickup" text="Arrive early, grab your bib." />
             <ScheduleRow time="06:45" title="Group warm-up" text="Led by local fitness partners." />
-            <ScheduleRow time="07:00" title="Flag off" text="10km first, then 8km, 6km, 2km, 1km and 500m." highlight />
+            <ScheduleRow time="07:00" title="Flag off" text="10km first, then 8km, 6km, 5km, 2km, 1km and 500m." highlight />
             <ScheduleRow time="09:30" title="Finish & refresh" text="Hydration, snacks, cool-down." />
             <ScheduleRow time="10:30" title="Community hour" text="Photos, awards, and hanging out." />
           </ul>
@@ -240,6 +251,7 @@ export default function Home() {
         </div>
       </section>
 
+      <PartnersSection />
       <ContactSection />
     </div>
   );
@@ -247,9 +259,26 @@ export default function Home() {
 
 /* ── Components ─────────────────────────────────────────── */
 
-function CategoryCard({ distance, title, blurb, level, accent, accentText = "var(--white)", className = "" }: {
-  distance: string; title: string; blurb: string;
-  level: string; accent: string; accentText?: string; className?: string;
+function CategoryCard({
+  distance,
+  displayDistance,
+  title,
+  blurb,
+  level,
+  accent,
+  accentText = "var(--white)",
+  className = "",
+  hideTitleOnLaptop = false,
+}: {
+  distance: string;
+  displayDistance?: string;
+  title: string;
+  blurb: string;
+  level: string;
+  accent: string;
+  accentText?: string;
+  className?: string;
+  hideTitleOnLaptop?: boolean;
 }) {
   const levelTextColor = accentText === "var(--ink)" ? "var(--ink)" : accent;
   const cardStyle = {
@@ -266,7 +295,7 @@ function CategoryCard({ distance, title, blurb, level, accent, accentText = "var
     >
       <div className="absolute inset-0 bg-[var(--card-accent)] opacity-[0.08] transition-opacity duration-300 group-hover:opacity-[0.12]" />
       <span
-        className="absolute right-0 top-0 z-20 whitespace-nowrap border border-r-0 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] rounded-bl-xl"
+        className="absolute right-0 top-0 z-20 max-w-[70%] border border-r-0 px-3 py-1 text-right text-[10px] font-bold uppercase leading-tight tracking-[0.12em] rounded-bl-xl break-words"
         style={{
           background: `color-mix(in srgb, ${accent} 16%, white)`,
           borderColor: `color-mix(in srgb, ${accent} 28%, white)`,
@@ -279,13 +308,17 @@ function CategoryCard({ distance, title, blurb, level, accent, accentText = "var
       <div className="relative z-10 h-8" />
 
       <div className="relative z-10 mt-7">
-        <p className="text-4xl font-extrabold uppercase leading-none tracking-tight text-[color:var(--ink)]">
-          {distance}
+        <p className="text-4xl font-extrabold uppercase leading-none tracking-tight text-[color:var(--ink)] lg:text-3xl">
+          {displayDistance ?? distance}
         </p>
-        <p className="mt-3 text-sm font-extrabold uppercase leading-tight text-[color:var(--ink)]">
+        <p
+          className={`mt-3 text-sm font-extrabold uppercase leading-tight text-[color:var(--ink)] lg:text-[13px] ${
+            hideTitleOnLaptop ? "lg:hidden" : ""
+          }`}
+        >
           {title}
         </p>
-        <p className="mt-3 text-sm leading-6 text-[color:var(--ink-soft)]">
+        <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[color:var(--ink-soft)]">
           {blurb}
         </p>
       </div>
