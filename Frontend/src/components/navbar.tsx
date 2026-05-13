@@ -11,6 +11,7 @@ import { BRAND_ICON_URL } from "@/lib/brand-icon";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/explore", label: "Explore" },
   { href: "/timeline", label: "Timeline" },
   { href: "/map-route", label: "Map" },
 ];

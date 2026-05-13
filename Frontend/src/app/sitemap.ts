@@ -5,7 +5,7 @@ const siteUrl =
     .trim()
     .replace(/\/$/, "");
 
-const routes = ["", "about", "registration", "timeline", "map-route", "admin"] as const;
+const routes = ["", "about", "explore", "registration", "timeline", "map-route", "admin"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

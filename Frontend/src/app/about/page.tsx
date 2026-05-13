@@ -141,6 +141,39 @@ export default function AboutPage() {
                 </blockquote>
               </div>
             </article>
+
+            <Link
+              href="/explore"
+              className="group relative block overflow-hidden rounded-2xl border border-black/10 bg-[color:var(--ink)] text-white shadow-[0_20px_42px_-28px_rgba(0,0,0,0.6)] transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--green)] focus-visible:ring-offset-2"
+            >
+              <div
+                className="absolute inset-0 scale-105 bg-cover bg-center transition duration-700 group-hover:scale-110"
+                style={{
+                  backgroundImage:
+                    "url('https://ik.imagekit.io/eizd2ue5a/muranga-countyimage.jpg')",
+                }}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(0,0,0,0.74)_0%,rgba(0,0,0,0.46)_58%,rgba(0,0,0,0.16)_100%)]" />
+              <div className="hero-stripes pointer-events-none absolute inset-0" />
+              <div className="relative z-10 flex min-h-[320px] flex-col justify-end p-6 sm:min-h-[380px] sm:p-8 md:p-10">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[color:var(--yellow)]">
+                  Explore Muranga
+                </p>
+                <h3
+                  className="mt-3 max-w-3xl font-extrabold uppercase leading-none tracking-tight"
+                  style={{ fontSize: "clamp(30px, 6vw, 68px)" }}
+                >
+                  Explore beautiful landscapes in Muranga.
+                </h3>
+                <p className="mt-4 max-w-2xl text-[14px] font-semibold leading-7 text-white/85 sm:text-base">
+                  Discover tea fields, scenic viewpoints, cultural landmarks, and
+                  hidden attractions that make Muranga worth visiting beyond race day.
+                </p>
+                <span className="mt-6 inline-flex min-h-12 w-fit items-center justify-center rounded-sm border border-white bg-white px-7 py-3 text-sm font-extrabold uppercase tracking-wide text-[color:var(--ink)] transition group-hover:bg-[color:var(--yellow)]">
+                  Visit Explore Page →
+                </span>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
