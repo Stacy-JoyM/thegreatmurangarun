@@ -226,7 +226,10 @@ function AttractionCard({
 }) {
   const accents = ["var(--green)", "var(--red)", "var(--yellow)", "var(--ink)"];
   const accent =
-    attraction.name === "Gatura Green Tea Farm" ? "var(--ink)" : accents[index % accents.length];
+    attraction.name === "Gatura Green Tea Farm" ||
+    attraction.name === "Garden of Eden (Eden Valley Park)"
+      ? "var(--ink)"
+      : accents[index % accents.length];
   const accentText = accent === "var(--yellow)" ? "var(--ink)" : "white";
 
   return (
