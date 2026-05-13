@@ -18,6 +18,28 @@ const attractions = [
     ],
   },
   {
+    name: "Garden of Eden (Eden Valley Park)",
+    tag: "Nature Park",
+    title: "A lush valley escape.",
+    description:
+      "A beautiful green park setting with forest paths, valley views, and peaceful scenery for visitors looking to slow down and enjoy nature in Muranga.",
+    images: [
+      "https://ik.imagekit.io/eizd2ue5a/garden_of_eden2.jpg",
+      "https://ik.imagekit.io/eizd2ue5a/garden_of_eden_valley.jpg",
+    ],
+  },
+  {
+    name: "Maragua Falls",
+    tag: "Waterfall",
+    title: "A cool waterfall escape.",
+    description:
+      "A beautiful waterfall spot with rushing water, rocky scenery, and shaded natural views that make it a refreshing stop for visitors exploring Muranga.",
+    images: [
+      "https://ik.imagekit.io/eizd2ue5a/maragua-falls1.jpg",
+      "https://ik.imagekit.io/eizd2ue5a/maragua-2.jpg",
+    ],
+  },
+  {
     name: "Ndakaini Dam",
     tag: "Water Views",
     title: "Calm water, wide skies.",
@@ -27,6 +49,14 @@ const attractions = [
       "https://ik.imagekit.io/eizd2ue5a/The-Ndakaini-Dam.jpg",
       "https://ik.imagekit.io/eizd2ue5a/ndakaini-dam2.jpg",
     ],
+  },
+  {
+    name: "Mau Mau Caves",
+    tag: "Historic Site",
+    title: "Freedom history hidden in the forest.",
+    description:
+      "Across Central Kenya, several Mau Mau caves served as secret hideouts, meeting points, and survival bases for freedom fighters during the struggle against British colonial rule. Visiting them is a quiet reminder of the courage and sacrifice behind Kenya's independence story.",
+    images: ["https://ik.imagekit.io/eizd2ue5a/mau-mau-caves1.jpg"],
   },
   {
     name: "Gatura Green Tea Farm",
@@ -48,17 +78,6 @@ const attractions = [
     images: [
       "https://ik.imagekit.io/eizd2ue5a/mathioya-2.jpg",
       "https://ik.imagekit.io/eizd2ue5a/mathioya-river3.jpg",
-    ],
-  },
-  {
-    name: "Maragua Falls",
-    tag: "Waterfall",
-    title: "A cool waterfall escape.",
-    description:
-      "A beautiful waterfall spot with rushing water, rocky scenery, and shaded natural views that make it a refreshing stop for visitors exploring Muranga.",
-    images: [
-      "https://ik.imagekit.io/eizd2ue5a/maragua-falls1.jpg",
-      "https://ik.imagekit.io/eizd2ue5a/maragua-2.jpg",
     ],
   },
   {
