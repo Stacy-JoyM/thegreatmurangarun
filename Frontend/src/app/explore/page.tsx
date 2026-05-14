@@ -145,7 +145,12 @@ export default function ExplorePage() {
               >
                 Explore
                 <br />
-                <span className="text-[color:var(--yellow)]">Muranga.</span>
+                <span
+                  className="text-[color:var(--yellow)] [-webkit-text-stroke:2px_white]"
+                  style={{ paintOrder: "stroke fill" }}
+                >
+                  Muranga.
+                </span>
               </h1>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
@@ -226,6 +231,9 @@ function AttractionCard({
 }) {
   const accents = ["var(--green)", "var(--red)", "var(--yellow)", "var(--ink)"];
   const accent =
+    attraction.name === "Ndakaini Dam"
+      ? "var(--yellow)"
+      : attraction.name === "Maragua Falls" ||
     attraction.name === "Gatura Green Tea Farm" ||
     attraction.name === "Garden of Eden (Eden Valley Park)"
       ? "var(--ink)"
