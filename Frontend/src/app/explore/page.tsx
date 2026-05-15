@@ -18,25 +18,14 @@ const attractions = [
     ],
   },
   {
-    name: "Garden of Eden (Eden Valley Park)",
+    name: "Garden of Eden ( Mukurwe wa Nyagathanga )",
     tag: "Nature Park",
     title: "A lush valley escape.",
     description:
-      "A beautiful green park setting with forest paths, valley views, and peaceful scenery for visitors looking to slow down and enjoy nature in Muranga.",
+      "Located in Gaturi, Murang'a County, Mukurwe wa Nyagathanga is revered as the mythical Garden of Eden and ancestral home of the Gikuyu community. It is believed to be where the first man (Gikuyu) and woman (Mumbi) settled by God, serving as the central point of dispersal for the Kikuyu people, featuring sacred fig trees and traditional hut replicas.",
     images: [
       "https://ik.imagekit.io/eizd2ue5a/garden_of_eden2.jpg",
       "https://ik.imagekit.io/eizd2ue5a/garden_of_eden_valley.jpg",
-    ],
-  },
-  {
-    name: "Maragua Falls",
-    tag: "Waterfall",
-    title: "A cool waterfall escape.",
-    description:
-      "A beautiful waterfall spot with rushing water, rocky scenery, and shaded natural views that make it a refreshing stop for visitors exploring Muranga.",
-    images: [
-      "https://ik.imagekit.io/eizd2ue5a/maragua-falls1.jpg",
-      "https://ik.imagekit.io/eizd2ue5a/maragua-2.jpg",
     ],
   },
   {
@@ -44,10 +33,21 @@ const attractions = [
     tag: "Water Views",
     title: "Calm water, wide skies.",
     description:
-      "Perfect for a scenic day plan with fresh air, quiet views, and a peaceful break from town energy.",
+      "Ndakaini Dam is the primary water source for Nairobi city and its surroundings, supplying roughly 80% of the city's water supply. Located in Gatanga, Murang'a County, this 63-meter-high earthfill dam on the Thika River was commissioned in 1994, with a storage capacity of 70 million cubic meters and a maximum depth of 65 meters.",
     images: [
       "https://ik.imagekit.io/eizd2ue5a/The-Ndakaini-Dam.jpg",
       "https://ik.imagekit.io/eizd2ue5a/ndakaini-dam2.jpg",
+    ],
+  },
+  {
+    name: "Kanunga Falls",
+    tag: "Waterfall",
+    title: "A hidden waterfall gem.",
+    description:
+      "The journey to Kanunga Falls from Ndakaini Dam is more of a leisurely walk than it is a hike. It is a round-trip of about 8 km that takes on average 5 hours for anyone with average fitness. From Ndakaini Dam, you head out along the blacktop road for much of the distance excepting a few detours through farms and tree lined paths as you approach the falls.",
+    images: [
+      "https://ik.imagekit.io/eizd2ue5a/kanunga-waterfalls3.webp",
+      "https://ik.imagekit.io/eizd2ue5a/kanunga-waterfalls4.webp",
     ],
   },
   {
@@ -63,7 +63,7 @@ const attractions = [
     tag: "Tea Experience",
     title: "Walk through Muranga's green tea country.",
     description:
-      "A scenic tea farm experience where visitors can enjoy rolling green fields, fresh highland air, and a closer look at one of Muranga's most beautiful agricultural landscapes.",
+      "Home to the first Purple Tea Farm in the world, Gatura Greens is an Award-Winning Farm Tour that offers an authentic Kenyan Tea Farm Tour Experience. The tour includes learning how to pick your own tea, processing it, and keeping it as a souvenir. It also includes a tea tasting ceremony, lunch, and a refreshing waterfall swim.",
     images: [
       "https://ik.imagekit.io/eizd2ue5a/gatura-green-tea-farm3.jpg",
       "https://ik.imagekit.io/eizd2ue5a/gatura-green-tea2.jpg",
@@ -74,21 +74,21 @@ const attractions = [
     tag: "River Escape",
     title: "Fresh water, green banks, and quiet views.",
     description:
-      "A refreshing river setting with lush greenery, rocky water channels, and peaceful picnic-style scenery for visitors who love nature.",
+      "The Mathioya River is a scenic, fast-flowing river in Murang'a County, Kenya, originating in the Aberdare Range and acting as a vital tributary to the Tana River. Known for its clear waters and lush scenery, it is a popular spot for whitewater rafting (Grade IV rapids) and nature-focused tourism.",
     images: [
-      "https://ik.imagekit.io/eizd2ue5a/mathioya-2.jpg",
+      "https://ik.imagekit.io/eizd2ue5a/Mathioya-River4.jpg",
       "https://ik.imagekit.io/eizd2ue5a/mathioya-river3.jpg",
     ],
   },
   {
-    name: "Kanunga Falls",
+    name: "Maragua Falls",
     tag: "Waterfall",
-    title: "A hidden waterfall gem.",
+    title: "A cool waterfall escape.",
     description:
-      "A scenic waterfall surrounded by lush greenery, flowing water, and natural rock formations for visitors looking for a peaceful outdoor stop in Muranga.",
+      "Maragua Falls is about 30 feet high and it cascades down over a jagged rock face engulfed by lush greenery and tall pines",
     images: [
-      "https://ik.imagekit.io/eizd2ue5a/kanunga_falls.jpg?updatedAt=1778657622896",
-      "https://ik.imagekit.io/eizd2ue5a/kanunga-falls2.jpg",
+      "https://ik.imagekit.io/eizd2ue5a/maragua-falls1.jpg",
+      "https://ik.imagekit.io/eizd2ue5a/maragua-2.jpg",
     ],
   },
 ];
@@ -235,7 +235,7 @@ function AttractionCard({
       ? "var(--yellow)"
       : attraction.name === "Maragua Falls" ||
     attraction.name === "Gatura Green Tea Farm" ||
-    attraction.name === "Garden of Eden (Eden Valley Park)"
+    attraction.name === "Garden of Eden ( Mukurwe wa Nyagathanga )"
       ? "var(--ink)"
       : accents[index % accents.length];
   const accentText = accent === "var(--yellow)" ? "var(--ink)" : "white";
